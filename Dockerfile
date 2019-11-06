@@ -3,7 +3,7 @@ WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY *.csproj ./Membros/
-WORKDIR /app/UrlRedirect
+WORKDIR /app/Membros
 RUN dotnet restore
 
 # copy and publish app and libraries
