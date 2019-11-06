@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
-COPY *.csproj ./Membros/
+COPY Membros/*.csproj ./Membros/
 WORKDIR /app/Membros
 RUN dotnet restore
 
