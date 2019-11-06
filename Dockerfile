@@ -16,7 +16,13 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 # Dependencies for libraries
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libc6-dev
-    
+
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated libgdiplus libc6-dev
+
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated libx11-dev
+
 ENV ASPNETCORE_URLS http://*:5000
 WORKDIR /app
 COPY --from=build /app/Membros/out ./
