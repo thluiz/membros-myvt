@@ -14,8 +14,8 @@ namespace Membros.Controllers {
             _logger = logger;
         }
         
-        [HttpGet("qrcode/{protocol}/{url}")]
-        public FileResult Index(string protocol, string url) {
+        [HttpGet("qrcode/{protocol}/{url}/{id?}")]
+        public FileResult Index(string protocol, string url, string id) {
             var writer = new BarcodeWriter {
                 Format = BarcodeFormat.QR_CODE,
                 Options = new QrCodeEncodingOptions {
@@ -25,7 +25,7 @@ namespace Membros.Controllers {
                 }
             };
 
-            var qrCodeImage = writer.Write($"{protocol}://{url}");
+            var qrCodeImage = writer.Write($"{protocol}://{url}/{id}");
 
             using (var stream = new MemoryStream()) {
                 qrCodeImage.Save(stream, ImageFormat.Png);
