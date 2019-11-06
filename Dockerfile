@@ -13,6 +13,7 @@ WORKDIR /app/Membros
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+ENV ASPNETCORE_URLS http://*:5000
 WORKDIR /app
 COPY --from=build /app/Membros/out ./
 ENTRYPOINT ["dotnet", "Membros.dll"]
