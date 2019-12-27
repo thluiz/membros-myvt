@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -32,18 +33,33 @@ namespace Membros {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.Use(async (context, next) => {
+                await next().ConfigureAwait(true);
+
+                if (!Path.HasExtension(context.Request.Path.Value) 
+                    && !context.Request.Path.Value.StartsWith("/api", 
+                        StringComparison.InvariantCultureIgnoreCase)
+                    ) {
+
+                    context.Request.Path = "/index.html";
+                    await next().ConfigureAwait(true);
+
+                }
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseRouting();    
 
             app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    pattern: "{identifier?}/{controller=Home}/{action=Index}");
+            });            
         }
     }
 }

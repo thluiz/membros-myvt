@@ -15,7 +15,11 @@ namespace Membros.Controllers {
             _logger = logger;
         }
 
-        public IActionResult Index() {
+        public IActionResult Index(string identifier) {
+            if (!string.IsNullOrWhiteSpace(identifier))
+                return Redirect($"/index.html#{identifier}");
+
+
             return View();
         }
 
