@@ -5,7 +5,7 @@ ng build --aot --prod
 
 Set-Location ../..
 
-git add -f wwwroot/. 
+git add -f Membros/wwwroot/. 
 
 git commit -m "Deploy" 
 
