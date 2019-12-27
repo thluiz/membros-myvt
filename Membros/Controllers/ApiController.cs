@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using System;
 
 namespace Membros.Controllers {
     public class ApiController : Controller {
@@ -14,7 +15,7 @@ namespace Membros.Controllers {
         
         [HttpGet("api/members")]
         public async Task<JsonResult> AllMembers() {
-            using (var connection = new SqlConnection()) {
+            using (var connection = new SqlConnection(Environment.GetEnvironmentVariable("DBCONN"))) {
                 var results = await connection
                                 .QueryAsync("select * from vwMembersPanel")
                                 .ConfigureAwait(true);
