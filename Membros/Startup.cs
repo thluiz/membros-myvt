@@ -63,20 +63,6 @@ namespace Membros {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers().RequireCors(AllowedOrigins);
             });
-
-            app.Use(async (context, next) => {
-                await next().ConfigureAwait(true);
-
-                if (!Path.HasExtension(context.Request.Path.Value)
-                    && !context.Request.Path.Value.StartsWith("/api",
-                        StringComparison.InvariantCultureIgnoreCase)
-                    ) {
-
-                    context.Request.Path = "/index.html";
-                    await next().ConfigureAwait(true);
-
-                }
-            });
         }
     }
 }

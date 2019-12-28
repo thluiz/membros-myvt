@@ -16,12 +16,8 @@ namespace Membros.Controllers {
             _logger = logger;
         }
 
-        [HttpGet("{identifier?}")]
-        public IActionResult Index(string identifier) {
-            if (!string.IsNullOrWhiteSpace(identifier) && !Path.HasExtension(identifier))
-                return Redirect($"/index.html#{identifier}");
-
-
+        [HttpGet("")]
+        public IActionResult Index() {            
             return View();
         }
 
