@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    hmr       : false
+    hmr       : false,
+    membersApi: "https://localhost:5001/api/members"
 };
 
 /*

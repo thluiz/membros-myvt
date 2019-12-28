@@ -8,7 +8,6 @@ import {
     ChangeDetectorRef,
     ChangeDetectionStrategy
 } from "@angular/core";
-import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 
 @Component({
     selector: "member-card",
