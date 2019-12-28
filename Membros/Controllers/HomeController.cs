@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Membros.Models;
+using System.IO;
 
 namespace Membros.Controllers {
     public class HomeController : Controller {
@@ -16,7 +17,7 @@ namespace Membros.Controllers {
         }
 
         public IActionResult Index(string identifier) {
-            if (!string.IsNullOrWhiteSpace(identifier))
+            if (!string.IsNullOrWhiteSpace(identifier) && !Path.HasExtension(identifier))
                 return Redirect($"/index.html#{identifier}");
 
 

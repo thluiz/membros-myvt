@@ -1,34 +1,22 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
-import { FuseSharedModule } from '@fuse/shared.module';
+import { FuseSharedModule } from "@fuse/shared.module";
 
-import { SampleComponent } from './sample.component';
+import { SampleComponent } from "./sample.component";
+import { MemberCardComponent } from './member-card.component';
 
 const routes = [
     {
-        path     : 'sample',
+        path: "sample",
         component: SampleComponent
     }
 ];
 
 @NgModule({
-    declarations: [
-        SampleComponent
-    ],
-    imports     : [
-        RouterModule.forChild(routes),
-
-        TranslateModule,
-
-        FuseSharedModule
-    ],
-    exports     : [
-        SampleComponent
-    ]
+    declarations: [SampleComponent, MemberCardComponent],
+    imports: [RouterModule.forChild(routes), TranslateModule, FuseSharedModule],
+    exports: [SampleComponent]
 })
-
-export class SampleModule
-{
-}
+export class SampleModule {}

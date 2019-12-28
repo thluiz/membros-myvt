@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace Membros {
     public class Startup {
+        readonly string AllowedOrigins = "allowedSpecificOrigins";
+
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
@@ -20,7 +22,19 @@ namespace Membros {
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) {
+        public void ConfigureServices(IServiceCollection services) {            
+            services.AddCors(options => {
+                options.AddPolicy(AllowedOrigins,
+                builder => {
+                    builder.WithOrigins("http://membros.myvtmi.im",
+                                        "https://membros.myvtmi.im",
+                                        "https://localhost:5001",
+                                        "http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod(); ;
+                });
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -34,11 +48,31 @@ namespace Membros {
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseCors();
+
+            app.Use((context, next) => {
+                context.Items["__CorsMiddlewareInvoked"] = true;
+                return next();
+            });            
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers().RequireCors(AllowedOrigins);
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{identifier?}/{controller=Home}/{action=Index}");
+            });
+
             app.Use(async (context, next) => {
                 await next().ConfigureAwait(true);
 
-                if (!Path.HasExtension(context.Request.Path.Value) 
-                    && !context.Request.Path.Value.StartsWith("/api", 
+                if (!Path.HasExtension(context.Request.Path.Value)
+                    && !context.Request.Path.Value.StartsWith("/api",
                         StringComparison.InvariantCultureIgnoreCase)
                     ) {
 
@@ -47,19 +81,6 @@ namespace Membros {
 
                 }
             });
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();    
-
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{identifier?}/{controller=Home}/{action=Index}");
-            });            
         }
     }
 }
