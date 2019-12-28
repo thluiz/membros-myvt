@@ -21,8 +21,4 @@
     <PackageReference Include="ZXing.Net.Bindings.CoreCompat.System.Drawing" Version="0.16.5-beta" />
   </ItemGroup>
 
-  <ItemGroup>
-    <TypeScriptCompile Include="fuse\src\app\member-card.component.ts" />
-  </ItemGroup>
-
 </Project>

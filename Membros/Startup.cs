@@ -62,10 +62,6 @@ namespace Membros {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers().RequireCors(AllowedOrigins);
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{identifier?}/{controller=Home}/{action=Index}");
             });
 
             app.Use(async (context, next) => {

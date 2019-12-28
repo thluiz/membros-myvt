@@ -24,6 +24,9 @@ import {
                 fxLayout="row"
                 fxLayoutAlign="space-between center"
             >
+                <div class="w-80 h-80">
+                    <img src="{{ member.avatar_img_path }}" />
+                </div>
                 <div class="pr-16">
                     <div class="h2" title="{{ member.fullname }}">
                         {{ member.name }}
@@ -32,11 +35,7 @@ import {
                         Admissão:
                         {{ member.admission_date | date: "dd/MM/yyyy" }}
                     </div>
-                </div>
-
-                <div class="w-80 h-80">
-                    <img src="{{ member.avatar_img_path }}" />
-                </div>
+                </div>                
             </div>
 
             <div class="p-16 pt-0 line-height-1.75">
