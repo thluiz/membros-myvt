@@ -12,15 +12,23 @@ namespace Membros.Controllers {
         public ApiController(ILogger<HomeController> logger) {
             _logger = logger;
         }
-        
+
         [HttpGet("api/members")]
         public async Task<JsonResult> AllMembers() {
-            using var connection = new SqlConnection(Environment.GetEnvironmentVariable("DBCONN"));
-            var results = await connection
-                            .QueryAsync("select * from vwMembersPanel order by case when domain_id = 10 then 0 else domain_id end, baaisi_date, admission_date, birth_date desc")
-                            .ConfigureAwait(true);
+            try {
 
-            return Json(results);
+
+                using var connection = new SqlConnection(Environment.GetEnvironmentVariable("DBCONN"));
+                var results = await connection
+                                .QueryAsync("select * from vwMembersPanel order by case when domain_id = 10 then 0 else domain_id end, baaisi_date, admission_date, birth_date desc")
+                                .ConfigureAwait(true);
+
+                return Json(results);
+
+            } catch (Exception ex) {
+
+                return Json(ex.Message);
+            }
         }
     }
 }
