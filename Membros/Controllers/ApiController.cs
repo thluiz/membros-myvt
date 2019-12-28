@@ -23,7 +23,7 @@ namespace Membros.Controllers {
                                 .QueryAsync("select * from vwMembersPanel order by case when domain_id = 10 then 0 else domain_id end, baaisi_date, admission_date, birth_date desc")
                                 .ConfigureAwait(true);
 
-                return Json(results);
+                return Json(results.AsList());
 
             } catch (Exception ex) {
 
