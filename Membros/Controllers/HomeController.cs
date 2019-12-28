@@ -16,9 +16,9 @@ namespace Membros.Controllers {
             _logger = logger;
         }
 
-        [HttpGet("")]
-        public IActionResult Index() {            
-            return View();
+        [HttpGet("{identifier?}")]
+        public IActionResult Index(string identifier) {              
+            return Redirect(Environment.GetEnvironmentVariable("PanelURL") + $"#{identifier}");
         }
 
         public IActionResult Privacy() {

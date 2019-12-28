@@ -28,6 +28,8 @@ namespace Membros {
                 builder => {
                     builder.WithOrigins("http://membros.myvtmi.im",
                                         "https://membros.myvtmi.im",
+                                        "http://painel-membros.myvtmi.im",
+                                        "https://painel-membros.myvtmi.im",
                                         "https://localhost:5001",
                                         "http://localhost:4200")
                     .AllowAnyHeader()
